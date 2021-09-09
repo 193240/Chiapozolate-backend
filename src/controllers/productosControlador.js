@@ -3,8 +3,8 @@ const productsC = {};
 const Producto = require('../models/producto');
 
 productsC.getProducts = async (req, res ) => {
-    const productos = await Producto.find();//devuelve arreglo
-    console.log(productos)
+    const productos = await Producto.find();//devuelve arreglo de todo lo que encuentra
+    // console.log(productos)
     res.json(productos)
 };
 
@@ -40,8 +40,9 @@ productsC.getProduct = async (req, res ) => {
 };
 
 productsC.deleteProduct = async (req, res ) => {
-
-    res.json({message: 'eliminar producto'})
+    //pendiente
+    await Producto.findOneAndDelete(req.params.id);
+    res.json({message: 'producto elimnado'})
 };
 
 module.exports = productsC;
