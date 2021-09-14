@@ -22,6 +22,6 @@ const cliente = new Schema({
         trim : true,
         unique : true
     },
-})
+},{timestamps:true})
 
 module.exports = model('Cliente', cliente);

@@ -4,7 +4,6 @@ const Producto = require('../models/producto');
 
 productsC.getProducts = async (req, res ) => {
     const productos = await Producto.find();//devuelve arreglo de todo lo que encuentra
-    // console.log(productos)
     res.json(productos)
 };
 
@@ -19,15 +18,17 @@ productsC.createProduct = async (req, res ) => {
     res.json({message: ' producto nuevo'})
 };
 
-productsC.updateProduct = async (req, res ) => {
-    console.log(req.params.id)
+productsC.updateProduct = async (req, res ) => { 
     const {name, stock, precio}= req.body;
-    //cosnt Stock = sumar con lo que estaba anteriromente
-    // cosnt newstock = stock +
+    const productoViejo = await Producto.findById(req.params.id);
+    aux = productoViejo.stock
+    if(stock){
+        aux = productoViejo.stock + parseInt(stock);
+    }
 
     await Producto.findOneAndUpdate({_id: req.params.id},{
         name,
-        stock,
+        stock: aux,
         precio
     })
     res.json({message: 'producto actualizado'})
@@ -36,11 +37,9 @@ productsC.updateProduct = async (req, res ) => {
 productsC.getProduct = async (req, res ) => {
     const producto = await Producto.findById(req.params.id);
     res.json(producto)
-    res.json({message: 'obtener producto'})
 };
 
 productsC.deleteProduct = async (req, res ) => {
-    //pendiente
     await Producto.findOneAndDelete(req.params.id);
     res.json({message: 'producto elimnado'})
 };
