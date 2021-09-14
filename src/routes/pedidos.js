@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getPedidos, crearPedido, getPedido, deletePedido} = require('../controllers/pedidosControlador');
+const {getPedidos, crearPedido, getPedido, updatePedido} = require('../controllers/pedidosControlador');
 
 router.route('/')
     .get(getPedidos)
@@ -9,8 +9,8 @@ router.route('/')
 
 
 router.route('/:id')
-        .get(getPedido)
-    // .put()
-    // .delete()    
+     .get(getPedido)
+     .put(updatePedido)
+    //  .delete()    
 
 module.exports = router;

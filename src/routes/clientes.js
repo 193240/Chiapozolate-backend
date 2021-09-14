@@ -1,14 +1,16 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getClientes} = require('../controllers/clientesControlador');
+const {getClientes, crearCliente, updateCliente, getCliente} = require('../controllers/clientesControlador');
 
 router.route('/')
-    .get((req, res) => res.send('pedidos ruta'))
+    .get(getClientes)
+    .post(crearCliente)
 
 
 router.route('/:id')
-    // .put()
+    .get(getCliente)
+    .put(updateCliente)
     // .delete()    
 
 module.exports = router;

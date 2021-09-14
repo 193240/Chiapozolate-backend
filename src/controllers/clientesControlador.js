@@ -1,18 +1,32 @@
 const clienteC = {};
 
-const clinte = require('../models/cliente');
+const cliente = require('../models/cliente');
 
 clienteC.getClientes = async (req, res ) => {
-   const clientes = await pedido.find();//devuelve arreglo 
+   const clientes = await cliente.find();//devuelve arreglo 
     res.json(clientes)
 
 };
 
-clienteC.crearCliente = (req, res ) => res.json({message: 'crear pedido'});
+clienteC.crearCliente = async (req, res ) => {
+    const {name,lastname,direccion,telefono} = req.body;
+    const newCliente = new cliente({
+        name,
+        lastname,
+        direccion,
+        telefono
+    });
+    await newCliente.save();
+    res.json({message: 'Cliente nuevo'})
+}
 
-clienteC.updateCliente = (req, res ) => res.json({message: 'cactualizar producto'});
+clienteC.updateCliente = (req, res ) => res.json({message: 'cliente actualizado'});
 
-clienteC.getCliente = (req, res ) => res.json({message: 'obtener pedido'});
+clienteC.getCliente = async (req, res ) => {
+    console.log(req.params.id);
+    const client = await cliente.findById(req.params.id);
+    res.json(client);
+};
 
 // pedidos.deleteCliente = (req, res ) => res.json({message: 'eliminar pedido'});
 
